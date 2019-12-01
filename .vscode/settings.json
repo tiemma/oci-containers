@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "string.h": "c",
+        "mount.h": "c"
+    }
+}
