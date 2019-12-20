@@ -1,20 +1,30 @@
+#include "./constants.h"
+
+#include <err.h>
 #include <stdio.h>
 #include <sys/mount.h>
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
-#define _GNU_SOURCE
-#define __USE_GNU
-
 #include <sched.h>
+#include <sys/syscall.h>
 
-#include "./constants.h"
 #include "./colors.h"
 #include "./mount.h"
-#include "./image.h"
+#include "./run.h"
 #include "./chroot.h"
 #include "./namespace.h"
 
+
+static int
+pivot_root(const char *new_root, const char *put_old)
+{
+    int ret = syscall(SYS_pivot_root, new_root, put_old);
+    if ( ret < 0 ){
+        printf("Failed to change root from %s to %s", put_old, new_root);
+    }
+    return ret;
+}
 
 
 const unsigned long hash(const char *str)
@@ -40,9 +50,9 @@ int main(int argc, char *argv[])
             break;
         case MOUNT:
             blue("Mounting directories for chroot {proc sys dev}\n");
-            mount_dir_bind("/proc");
-            mount_dir_bind("/sys");
-            mount_dir_bind("/dev");
+            mount_dir_bind("/proc", NULL);
+            mount_dir_bind("/sys", NULL);
+            mount_dir_bind("/dev", NULL);
             break;
         case UNMOUNT:
             blue("Unmounting directories for chroot {proc sys dev}\n");
@@ -73,6 +83,19 @@ int main(int argc, char *argv[])
             blue("Demo of volumes in containers");
             exec_command("touch /dev/THIS_IS_A_VOLUME");
             break;
+        case NAMESPACE:
+            blue("Exec into a shell in a new namespace");
+
+            const char* command = "/bin/bash";
+            char opts[6] = "inmpuU";
+
+            exec_command("mkdir /tmp/newroot");
+            exec_command("mkdir /tmp/oldroot");
+            mount_dir_bind(ROOTFS_PATH, "/tmp/newroot");
+            unshare_command(command, opts);
+            pivot_root("/tmp/newroot", "/tmp/oldroot");
+            break;
+
         default:
             printf("Invalid argument %s specified", argument);
             break;

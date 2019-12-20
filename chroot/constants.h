@@ -1,3 +1,7 @@
+//Linux library specific definitions
+#define _GNU_SOURCE
+#define __USE_GNU
+
 // Container constants
 #define ROOTFS_PATH "./rootfs"
 #define EXTRACT_IMAGE "rm -r ./rootfs; mkdir rootfs; docker export $(docker create alpine) | tar -C rootfs -xvf -"
@@ -9,6 +13,7 @@
 #define CHROOT 6953391102356
 #define SHELL 210727781757
 #define VOLUME 6954142767101
+#define NAMESPACE 249899181367082546
 
 // Color combinations
 #define KNRM "\x1B[0m"
