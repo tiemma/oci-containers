@@ -8,6 +8,7 @@
 #define UNMOUNT 229485381690395
 #define CHROOT 6953391102356
 #define SHELL 210727781757
+#define VOLUME 6954142767101
 
 // Color combinations
 #define KNRM "\x1B[0m"
