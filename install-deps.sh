@@ -19,5 +19,5 @@ cd oci-containers/container
 
 gcc main.c -o containers
 
-sudo ./containers image
+./containers image
 
