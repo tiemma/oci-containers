@@ -94,6 +94,7 @@ int main(int argc, char *argv[])
             // This is because pivot_root will not work on a shared(MNT_SHARE) filesystem
             yellow("Mounting root directory under a private propagation subtree");
             mount("none", "/", NULL, MS_REC | MS_PRIVATE, NULL);
+
             check_mount_errors();
 
             char opts[9] = "inmuc";
