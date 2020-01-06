@@ -15,7 +15,8 @@ void exec_command(const char *command)
     while (fgets(line, sizeof line, fp))
     {
         blue(line);
-        white("");
     }
     pclose(fp);
+    perror("Exec command");
+    printf("\n");
 }

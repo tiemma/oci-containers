@@ -15,9 +15,9 @@ curl -fSL "https://github.com/genuinetools/riddler/releases/download/v0.6.3/ridd
 
 git clone https://github.com/Tiemma/oci-containers 
 
-cd oci-containers/chroot
+cd oci-containers/container
 
-gcc main.c -o chroot
+gcc main.c -o containers
 
-sudo ./chroot image 
+sudo ./containers image
 
