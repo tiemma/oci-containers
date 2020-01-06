@@ -4,7 +4,7 @@
 
 // Container constants
 #define ROOTFS_PATH "./rootfs"
-#define EXTRACT_IMAGE "rm -r ./rootfs; mkdir rootfs; docker export $(docker create alpine) | tar -C rootfs -xvf -"
+#define EXTRACT_IMAGE "rm -r ./rootfs; mkdir rootfs; docker export $(docker create alpine) | tar -C rootfs -xvf -; mkdir rootfs/oldroot"
 
 // Command hashes
 #define IMAGE 210716097704
@@ -14,6 +14,7 @@
 #define SHELL 210727781757
 #define VOLUME 6954142767101
 #define NAMESPACE 249899181367082546
+#define UNSHARE 229485388532699
 
 // Color combinations
 #define KNRM "\x1B[0m"
@@ -24,3 +25,5 @@
 #define KMAG "\x1B[35m"
 #define KCYN "\x1B[36m"
 #define KWHT "\x1B[37m"
+#define ENDC "\033[0m"
+
