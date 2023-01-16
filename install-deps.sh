@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install runc jq gcc git
+sudo apt install -y runc jq gcc git
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
